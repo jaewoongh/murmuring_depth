@@ -1,0 +1,18 @@
+{
+  "name": "Murmuring_Depth",
+  "version": "0.0.0",
+  "description": "Depth that murmurs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "later"
+  },
+  "keywords": [
+    "murr"
+  ],
+  "author": "Jaewoong Hwang",
+  "license": "BSD"
+}
