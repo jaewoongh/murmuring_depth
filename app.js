@@ -55,9 +55,23 @@ app.use(function(err, req, res, next) {
 	});
 });
 
-var server = app.listen(4444, function() {
-	console.log('Listening on port %d', server.address().port);
-});
+// // Start server
+// var server = app.listen(4444, function() {
+// 	console.log('Listening on port %d', server.address().port);
+// });
 
+// Start server with socket.io
+var server;
+var io = require('socket.io').listen(server = app.listen(4444, function() {
+	console.log('Listening on port %d', server.address().port);
+}));
+
+// Deal with new connection
+io.sockets.on('connection', function (socket) {
+	socket.emit('heyclient', { message: 'Successfully connected to the server' });
+	socket.on('heyserver', function (data) {
+		io.sockets.emit('heyclient', data);
+	});
+});
 
 module.exports = app;
