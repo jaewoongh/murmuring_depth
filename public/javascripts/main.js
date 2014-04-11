@@ -4,7 +4,7 @@ var connection = (function() {
 	return {
 		// Init method
 		init: function() {
-			socket = io.connect('http://localhost:4444');
+			socket = io.connect('/');
 
 			socket.on('heyclient', function(data) {
 				if(data.message) {
