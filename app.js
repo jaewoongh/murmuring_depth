@@ -55,23 +55,43 @@ app.use(function(err, req, res, next) {
 	});
 });
 
-// // Start server
-// var server = app.listen(4444, function() {
-// 	console.log('Listening on port %d', server.address().port);
-// });
-
-// Start server with socket.io
-var server;
-var io = require('socket.io').listen(server = app.listen(4444, function() {
+// Start server
+var server = app.listen(4444, function() {
 	console.log('Listening on port %d', server.address().port);
-}));
+});
 
-// Deal with new connection
-io.sockets.on('connection', function (socket) {
-	socket.emit('heyclient', { message: 'Successfully connected to the server' });
-	socket.on('heyserver', function (data) {
-		io.sockets.emit('heyclient', data);
+// Start websocket server
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({ server: server });
+console.log('Websocket server created');
+wss.on('connection', function(ws) {
+	ws.send(JSON.stringify({ message:'Connection opened' }), function(err) {
+		console.log(err);
+	});
+
+	ws.on('message', function(msg) {
+		msg = JSON.parse(msg);
+		console.log('');
+		console.log(msg);
+	});
+
+	wss.on('close', function() {
+		console.log('Websocket connection closed');
 	});
 });
+
+// // Start server with socket.io
+// var server;
+// var io = require('socket.io').listen(server = app.listen(4444, function() {
+// 	console.log('Listening on port %d', server.address().port);
+// }));
+
+// // Deal with new connection
+// io.sockets.on('connection', function (socket) {
+// 	socket.emit('heyclient', { message: 'Successfully connected to the server' });
+// 	socket.on('heyserver', function (data) {
+// 		io.sockets.emit('heyclient', data);
+// 	});
+// });
 
 module.exports = app;
