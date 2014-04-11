@@ -61,6 +61,7 @@ var server = app.listen(4444, function() {
 });
 
 // Start websocket server
+var WebSocket = require('ws');
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ server: server });
 console.log('Websocket server created');
