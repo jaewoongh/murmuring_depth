@@ -5,7 +5,7 @@ var initConnection = function() {
 
 		// Deal with ping
 		if(data.ping) {
-			connection.ping = Date.now() - data.ping;
+			connection.latency = Date.now() - data.ping;
 		}
 
 		// Deal with list

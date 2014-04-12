@@ -1,7 +1,7 @@
 var connection = (function() {
 	var host = location.origin.replace(/^http/, 'ws')
 	var ws = new WebSocket(host);
-	var ping;
+	var latency;
 
 	ws.onmessage = function(event) {
 		connection.onmessage(event);
