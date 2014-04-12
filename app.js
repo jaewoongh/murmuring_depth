@@ -20,13 +20,8 @@ wss.on('connection', function(ws) {
 
 	// Set timer for ping
 	var ping = setInterval(function() {
-		wss.broadcast(JSON.stringify({ ping: Date.now() }));
+		wss.broadcast({ ping: Date.now() });
 	}, 1000);
-
-	// Remove timer when disconnected
-	ws.on('close', function() {
-		clearInterval(ping);
-	});
 
 	// Send data-so-far when connected
 	if(listsofar.length > 0) ws.send(JSON.stringify({ list: listsofar }));

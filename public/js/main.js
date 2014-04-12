@@ -1,4 +1,4 @@
-window.onload = function() {
+var initConnection = function() {
 	// Override onmessage function
 	connection.onmessage = function(event) {
 		var data = JSON.parse(event.data);
@@ -26,4 +26,8 @@ window.onload = function() {
 
 		return connection;
 	};
+};
+
+window.onload = function() {
+	initConnection();
 };
