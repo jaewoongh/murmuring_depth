@@ -34,6 +34,13 @@ wss.on('connection', function(ws) {
 			if(listsofar.length > 10) listsofar.shift();
 			wss.broadcast({ list: data.list });
 		}
+
+		// Log out received data
+		for(var key in data) {
+			console.log('DATA FROM CLIENT {');
+			console.log('\t' + key + ': ' + data[key]);
+			console.log('}');
+		}
 	});
 });
 

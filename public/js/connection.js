@@ -3,6 +3,8 @@ var connection = (function() {
 	var ws = new WebSocket(host);
 	var latency;
 
+	console.log('Connected to the server');
+
 	ws.onmessage = function(event) {
 		connection.onmessage(event);
 	};

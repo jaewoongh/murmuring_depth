@@ -2,20 +2,30 @@
 <html>
 	<head>
 		<title>murmuring depths</title>
+		<link rel="stylesheet" type="text/css" href="./css/style.css" />
 		<script type="text/javascript" src="./js/connection.js"></script>
+		<script type="text/javascript" src="./js/easeljs-0.7.1.min.js"></script>
+		<script type="text/javascript" src="./js/assetfactory.js"></script>
 		<script type="text/javascript" src="./js/main.js"></script>
 	</head>
 	<body>
-		<h1>Murmuring Depths</h1>
-		<p>Websocket + heroku server test</p>
-		<ul>
-		<li>In javascript console, type <em>connection.send({ list: "<strong>something</strong>"})</em> to add thing to the list below.</li>
-		<li>In javascript console, type <em>connection.latency</em> to check latency.</li>
-		<li>I don't know why the latency value goes negative many times though.</li>
-		</ul>
-		<br />
-		<h2>List</h2>
-		<p>Server keeps up to 10 recent items</p>
-		<ul id="messages"></ul>
+		<!-- Test Canvas //-->
+		<canvas id="testCanvas"></canvas>
+
+		<div class="overlayer">
+			<!-- Description //-->
+			<h1>Murmuring Depths</h1>
+			<p>Websocket + heroku server test</p>
+			<ul>
+				<li>In javascript console, type <em>connection.send({ list: "<strong>something</strong>"})</em> to add thing to the list below.</li>
+				<li>In javascript console, type <em>connection.latency</em> to check latency.</li>
+				<li>I don't know why the latency value goes negative many times though.</li>
+			</ul><br />
+
+			<!-- List //-->
+			<h2>List</h2>
+			<p>Server keeps up to 10 recent items</p>
+			<ul id="messages"></ul>
+		</div>
 	</body>
 </html>
