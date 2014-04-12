@@ -89,7 +89,7 @@ var WebSocketServer = require('ws').Server
 	, app = express()
 	, port = 4444;
 
-app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/public/'));
 
 var server = http.createServer(app);
 server.listen(port);
