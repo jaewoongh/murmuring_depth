@@ -8,6 +8,10 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var WebSocketServer = require('ws').Server;
+var http = require('http');
+var port = process.env.PORT || 4444;
+
 var app = express();
 
 // view engine setup
@@ -56,13 +60,11 @@ app.use(function(err, req, res, next) {
 });
 
 // Start server
-var server = app.listen(4444, function() {
+var server = app.listen(port, function() {
 	console.log('Listening on port %d', server.address().port);
 });
 
 // Start websocket server
-var WebSocket = require('ws');
-var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ server: server });
 console.log('Websocket server created');
 wss.on('connection', function(ws) {
