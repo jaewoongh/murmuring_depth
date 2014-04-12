@@ -10,7 +10,7 @@ var users = require('./routes/users');
 
 var WebSocketServer = require('ws').Server;
 var http = require('http');
-var port = process.env.PORT || 4444;
+var port = /* process.env.PORT || */ 4444;
 
 var app = express();
 
@@ -60,9 +60,9 @@ app.use(function(err, req, res, next) {
 });
 
 // Start server
-var server = app.listen(port, function() {
-	console.log('Listening on port %d', server.address().port);
-});
+var server = http.createServer(app);
+server.listen(port);
+console.log('Listening on port %d', server.address().port);
 
 // Start websocket server
 var wss = new WebSocketServer({ server: server });
@@ -78,7 +78,7 @@ wss.on('connection', function(ws) {
 		console.log(msg);
 	});
 
-	wss.on('close', function() {
+	ws.on('close', function() {
 		console.log('Websocket connection closed');
 	});
 });
