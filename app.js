@@ -18,6 +18,12 @@ wss.on('connection', function(ws) {
 
 	ws.on('message', function(data) {
 		console.log(JSON.parse(data));
-		ws.send(data);
+		wss.broadcast(data);
 	});
 });
+
+wss.broadcast = function(data) {
+	for(var i in this.clients) {
+		this.clients[i].send(data);
+	}
+};
