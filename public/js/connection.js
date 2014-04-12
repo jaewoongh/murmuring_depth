@@ -1,6 +1,8 @@
 var connection = (function() {
 	var host = location.origin.replace(/^http/, 'ws')
 	var ws = new WebSocket(host);
+	var ping;
+
 	ws.onmessage = function(event) {
 		connection.onmessage(event);
 	};
