@@ -6,6 +6,16 @@
 		<script type="text/javascript" src="./js/main.js"></script>
 	</head>
 	<body>
+		<h1>Murmuring Depths</h1>
+		<p>Websocket + heroku server test</p>
+		<ul>
+		<li>In javascript console, type <em>connection.send({ list: "<strong>something</strong>"})</em> to add thing to the list below.</li>
+		<li>In javascript console, type <em>connection.latency</em> to check latency.</li>
+		<li>I don't know why the latency value goes negative many times though.</li>
+		</ul>
+		<br />
+		<h2>List</h2>
+		<p>Server keeps up to 10 recent items</p>
 		<ul id="messages"></ul>
 	</body>
 </html>
