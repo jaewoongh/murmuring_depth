@@ -11,8 +11,11 @@ server.listen(port);
 
 console.log('http server listening on %d', port);
 
+// Data variables
 var listsofar = [];
+var icons = [];
 
+// Websocket Server
 var wss = new WebSocketServer({server: server});
 console.log('websocket server created');
 wss.on('connection', function(ws) {
@@ -25,24 +28,49 @@ wss.on('connection', function(ws) {
 
 	// Send data-so-far when connected
 	if(listsofar.length > 0) ws.send(JSON.stringify({ list: listsofar }));
+	if(icons.length > 0) ws.send(JSON.stringify({ icon: icons }));
 
 	// Deal with new message
 	ws.on('message', function(data) {
 		var data = JSON.parse(data);
+
+		// Deal with list
 		if(data.list) {
 			listsofar.push(data.list);
 			if(listsofar.length > 10) listsofar.shift();
 			wss.broadcast({ list: data.list });
 		}
 
-		// Log out received data
-		for(var key in data) {
-			console.log('DATA FROM CLIENT {');
-			console.log('\t' + key + ': ' + data[key]);
-			console.log('}');
+		// Deal with icon
+		if(data.icon) {
+			icons.push(data.icon);
+			wss.broadcast({ icon: data.icon });
 		}
+
+		// Log out received data
+		console.log('DATA FROM CLIENT');
+		console.log(printoutObject(data));
 	});
 });
+
+// Unfold object and make it into a string
+var printoutObject = function(obj, ind, log) {
+	var ind = ind || 1;
+	var log = log || '';
+	var indent = '';
+	for(var i = 0; i < ind; i++) {
+		indent += '\t';
+	}
+	for(var key in obj) {
+		if(typeof obj[key] === 'object') {
+			log += printoutObject(obj[key], ++ind, log + indent + key + ': {' + '\n');
+			log += '\n' + indent + '}';
+		} else {
+			log += indent + key + ': ' + obj[key] + '\n';
+		}
+	}
+	return log;
+};
 
 // Broadcasting function
 wss.broadcast = function(data) {

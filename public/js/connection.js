@@ -2,6 +2,7 @@ var connection = (function() {
 	var host = location.origin.replace(/^http/, 'ws')
 	var ws = new WebSocket(host);
 	var latency;
+	var that;
 
 	console.log('Connected to the server');
 
